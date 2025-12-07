@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cancer Awareness & Support</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #f9a8d4 0, #1f2937 45%, #020617 100%);
+      color: #f9fafb;
+    }
+
+    /* Glassmorphism helpers */
+    .glass {
+      background: rgba(15, 23, 42, 0.55);
+      border-radius: 1.25rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.75),
+        0 0 0 1px rgba(248, 250, 252, 0.02);
+      backdrop-filter: blur(22px) saturate(130%);
+      -webkit-backdrop-filter: blur(22px) saturate(130%);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 0.9rem 1.5rem;
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.9),
+        rgba(15, 23, 42, 0.3),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.95rem;
+    }
+
+    .logo-pill {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: conic-gradient(from 160deg, #ec4899, #8b5cf6, #22c55e, #ec4899);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-pill-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 30% 30%, #f9fafb, #1f2937);
+    }
+
+    .nav-links a {
+      margin-left: 0.75rem;
+      color: #e5e7eb;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(248, 250, 252, 0.1);
+      color: #f9fafb;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 1.5rem auto 2rem;
+      padding: 0 1.5rem 2rem;
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2.25rem;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-text {
+      padding: 1.4rem 1.4rem 1.5rem;
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #f9a8d4;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #f97316;
+      box-shadow: 0 0 0 5px rgba(248, 113, 113, 0.35);
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.1rem, 3.3vw, 2.9rem);
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(135deg, #fb7185, #e879f9, #38bdf8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: #e5e7eb;
+      margin-bottom: 0.6rem;
+      max-width: 34rem;
+    }
+
+    .hero-secondary {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      max-width: 30rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      padding: 0.65rem 1.3rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: #f9fafb;
+      box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(236, 72, 153, 0.55);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.65);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .btn-icon {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    /* Banner card */
+    .hero-banner {
+      position: relative;
+      overflow: hidden;
+      padding: 1rem;
+    }
+
+    .hero-banner-inner {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.7);
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 280px;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 0.8rem 1rem 1rem;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+
+    .banner-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.2rem;
+      color: #f9a8d4;
+    }
+
+    .banner-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4);
+    }
+
+    /* Info cards */
+    .info-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: 2.4rem;
+    }
+
+    .info-card {
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.9),
+        rgba(30, 64, 175, 0.9)
+      );
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0% 0%, rgba(248, 113, 113, 0.25), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .info-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      margin-bottom: 0.45rem;
+      border: 1px solid rgba(248, 250, 252, 0.12);
+    }
+
+    .info-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .info-card p {
+      font-size: 0.85rem;
+      color: #e5e7eb;
+    }
+
+    /* Contact section */
+    .contact-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2.2rem;
+    }
+
+    .contact-text {
+      padding: 1.3rem 1.4rem;
+    }
+
+    .contact-text h2 {
+      font-size: 1.55rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .contact-text p {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      margin-bottom: 0.6rem;
+    }
+
+    .contact-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+      font-size: 0.78rem;
+    }
+
+    .contact-badge {
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.8);
+      color: #e5e7eb;
+    }
+
+    form {
+      padding: 1.2rem 1.3rem 1.3rem;
+    }
+
+    .form-row {
+      margin-bottom: 0.9rem;
+    }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-bottom: 0.25rem;
+      color: #e5e7eb;
+    }
+
+    label span.hint {
+      color: #9ca3af;
+      font-weight: 400;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.7rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.85);
+      color: #f9fafb;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      resize: vertical;
+      min-height: 42px;
+    }
+
+    textarea {
+      min-height: 110px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #6b7280;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #f472b6;
+      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.12), 0 0 0 3px rgba(251, 113, 133, 0.5);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 0.4rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #22c55e, #a3e635);
+      color: #052e16;
+      cursor: pointer;
+      box-shadow: 0 14px 35px rgba(34, 197, 94, 0.5);
+      transition: transform 0.08s ease, box-shadow 0.12s ease, filter 0.1s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 45px rgba(34, 197, 94, 0.65);
+      filter: brightness(1.02);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 24px rgba(34, 197, 94, 0.55);
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 1rem auto 0;
+      padding: 0 1.5rem 1.5rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    footer span {
+      color: #f9a8d4;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .layout-grid,
+      .contact-section {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        padding-bottom: 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding-inline: 1rem;
+      }
+
+      main {
+        padding-inline: 1rem;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 0.35rem;
+      }
+
+      .nav-links a {
+        margin-left: 0;
+        margin-right: 0.5rem;
+      }
+
+      .hero-text,
+      .contact-text,
+      form {
+        padding-inline: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-pill">
+          <div class="logo-pill-inner"></div>
+        </div>
+        Cancer Awareness & Support
+      </div>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#learn">Learn</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="layout-grid">
+      <div class="hero-text glass">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          United against cancer
+        </div>
+        <h1>
+          Turning fear into
+          <span class="hero-highlight">strength, awareness, and hope.</span>
+        </h1>
+        <p class="hero-subtitle">
+          A gentle space to learn about cancer, find emotional support, and reach out when you need someone to listen.
+        </p>
+        <p class="hero-secondary">
+          Survivors, patients, caregivers, and allies are all welcome. Your journey matters, and no one should walk it alone.
+        </p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn-primary">
+            <span class="btn-icon">💬</span>
+            Talk to support
+          </a>
+          <a href="#learn" class="btn-ghost">
+            <span class="btn-icon">📘</span>
+            Learn the warning signs
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-banner">
+        <div class="hero-banner-inner">
+          <!-- Replace this with a royalty-free awareness illustration you like -->
+          <img
+            src="https://img.freepik.com/free-vector/gradient-background-breast-cancer-awareness-month_23-2149647814.jpg"
+            alt="Cancer awareness ribbons and people supporting each other"
+          />
+          <div class="banner-overlay">
+            <div class="banner-tag">
+              <span class="banner-tag-dot"></span>
+              World Cancer Awareness
+            </div>
+            Together, shared stories and early check‑ups can change lives.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="learn" class="info-strip">
+      <article class="info-card">
+        <div class="info-icon">🔍</div>
+        <h3>Spot early warning signs</h3>
+        <p>Talk to a doctor if you notice unusual lumps, sudden weight changes, bleeding, or persistent pain.</p>
+      </article>
+      <article class="info-card">
+        <div class="info-icon">🩺</div>
+        <h3>Screening can save lives</h3>
+        <p>Regular screening tests help detect certain cancers early, when treatment is often more effective.</p>
+      </article>
+      <article class="info-card">
+        <div class="info-icon">🤝</div>
+        <h3>Support for every journey</h3>
+        <p>Peer groups, counselors, and caregivers can provide strength through every stage of treatment.</p>
+      </article>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="contact-text glass">
+        <h2>Reach out for a listening ear</h2>
+        <p>
+          Share your worries, ask questions, or send a message of hope. This form is a safe space to express what you are going through.
+        </p>
+        <p>
+          Messages are reviewed by a small support team. For emergencies or urgent symptoms, please contact your local health provider immediately.
+        </p>
+        <div class="contact-badge-row">
+          <div class="contact-badge">Confidential</div>
+          <div class="contact-badge">Free to use</div>
+          <div class="contact-badge">Supportive tone</div>
+        </div>
+      </div>
+
+      <form class="glass">
+        <div class="form-row">
+          <label for="name">
+            Name
+            <span class="hint">Optional</span>
+          </label>
+          <input id="name" type="text" name="name" placeholder="Enter your name (or stay anonymous)" />
+        </div>
+
+        <div class="form-row">
+          <label for="email">
+            Email
+            <span class="hint">To receive a reply</span>
+          </label>
+          <input id="email" type="email" name="email" placeholder="you@example.com" />
+        </div>
+
+        <div class="form-row">
+          <label for="message">
+            Message
+            <span class="hint">How can this space support you?</span>
+          </label>
+          <textarea id="message" name="message" placeholder="Share your thoughts, questions, or story here..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          Send message of hope
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span>Cancer Awareness & Support</span> · Informational and emotional support space only.</div>
+    <div>Not a substitute for professional medical advice, diagnosis, or emergency care.</div>
+  </footer>
+</body>
+</html>
